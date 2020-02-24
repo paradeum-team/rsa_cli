@@ -59,37 +59,7 @@ func AFSExec4V2(command, cmdArg string, optionalTimeout int) EngineResponse { //
 
 		return engineResponse
 	}
-	/**
-		if command == dict.CMDIDSetParam {
-			// Insert set param record to a database.
-			var db *leveldb.DB
-			db, err := leveldb.OpenFile(filepath.Join(pldconf.AppConfig.Server.APIDataFolder, pldconf.AppConfig.Server.DBFolder), nil)
-			if err != nil {
-				plogger.NewInstance().GetLogger().Errorf("v2AFSExec failed to open db for set param records %v", err)
-				engineResponse.Error = err
-				engineResponse.SysCode=e.ScodeErr //设置一个服务器错误号
-				return engineResponse
-			}
-			defer db.Close()
-
-			// Key     string  SET:YYYYMMDD:AFID
-			// Value   int64   unixtimestamp
-			afid := ""
-			if afidIdx := strings.Index(cmdArg, ";afid="); afidIdx > -1 {
-				//这个位置出问题了
-				afid = cmdArg[afidIdx+len(";afid=") : afidIdx+len(";afid=")+dict.AFIdLength]
-			}
-
-			if afid != "" {
-				ymd := time.Now().Local().Format("20060102150405")[:8]
-				timeNowb := make([]byte, 8)
-				binary.LittleEndian.PutUint64(timeNowb, uint64(time.Now().Unix()))
-				db.Put([]byte(fmt.Sprintf(dict.SetParamRecordPrefixPlaceholder, ymd)+afid), timeNowb, nil)
-			} else {
-				plogger.NewInstance().GetLogger().Warnf("v2AFSExec", fmt.Sprintf("cannot retrieve afid from set param %s", cmdArg))
-			}
-		}
-	**/
+ 
 	//如果上面没有 return ,这里返回，就应该重置为false。后面
 	engineResponse.IsBadParams = false
 	engineResponse.IsTimeout = false
