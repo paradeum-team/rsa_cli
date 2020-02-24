@@ -5,6 +5,7 @@ import (
 	"bfs_cli_rsa/common/plogger"
 	"bfs_cli_rsa/engine"
 	"bfs_cli_rsa/models"
+	"fmt"
 )
 
 /**
@@ -39,7 +40,7 @@ func (c *baseService) CreateRsaKeyPeer(execTimeout int) (sCode int, response mod
 	response = models.RsaKeyPeer{}
 
 	cmdArgs := dict.CreateRsaKeyPeer
-	plogger.NewInstance().GetLogger().Info("baseService:GetVersion .The cmdArgs=%s \n ", cmdArgs)
+	plogger.NewInstance().GetLogger().Info("baseService:CreateRsaKeyPeer .The cmdArgs=%s \n ", cmdArgs)
 	engineResponse := engine.AFSExec4V2(dict.CMDIDVer, cmdArgs, execTimeout)
 	sCode, response = engine.HandlerRsaKeyPeer(engineResponse)
 	return sCode, response
@@ -52,8 +53,9 @@ func (c *baseService) CreateRsaKeyPeer(execTimeout int) (sCode int, response mod
 func (c *baseService) DeRsaWithPrivateKey(privateKeyHex string,cipherText string , execTimeout int)(sCode int, response models.DeRsa){
 	response = models.DeRsa{}
 
-	cmdArgs := dict.CreateRsaKeyPeer
-	plogger.NewInstance().GetLogger().Info("baseService:GetVersion .The cmdArgs=%s \n ", cmdArgs)
+	cmdArgs := fmt.Sprintf(dict.DeRsa,cipherText,privateKeyHex)
+
+	plogger.NewInstance().GetLogger().Info("baseService:DeRsaWithPrivateKey .The cmdArgs=%s \n ", cmdArgs)
 	engineResponse := engine.AFSExec4V2(dict.CMDIDVer, cmdArgs, execTimeout)
 	sCode, response = engine.HandlerDeRsa(engineResponse)
 	return sCode, response
