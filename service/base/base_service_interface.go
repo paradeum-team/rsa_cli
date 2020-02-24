@@ -13,5 +13,8 @@ type BaseService interface {
 
     CreateRsaKeyPeer(execTimeout int)(sCode int, response models.RsaKeyPeer)
 
+	DeRsaWithPrivateKey(privateKeyHex string,cipherText string , pexecTimeout int)(sCode int, response models.DeRsa)
+
+
 }
 

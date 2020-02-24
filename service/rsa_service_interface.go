@@ -8,4 +8,6 @@ type RsaService interface {
 
 	CreateRsaKeyPeer()(sCode int, response models.RsaKeyPeer)
 
+	GetPassWithPrivateKey(privateKeyHex string,sypassenHex string )(sCode int, response models.DeRsa)
+
 }

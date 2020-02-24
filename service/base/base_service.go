@@ -34,7 +34,7 @@ func (c *baseService) GetVersion(execTimeout int) (sCode int, response models.Ve
 	return sCode, response
 }
 
-//获取BFS版本
+//创建 rsakey peer
 func (c *baseService) CreateRsaKeyPeer(execTimeout int) (sCode int, response models.RsaKeyPeer) {
 	response = models.RsaKeyPeer{}
 
@@ -42,5 +42,19 @@ func (c *baseService) CreateRsaKeyPeer(execTimeout int) (sCode int, response mod
 	plogger.NewInstance().GetLogger().Info("baseService:GetVersion .The cmdArgs=%s \n ", cmdArgs)
 	engineResponse := engine.AFSExec4V2(dict.CMDIDVer, cmdArgs, execTimeout)
 	sCode, response = engine.HandlerRsaKeyPeer(engineResponse)
+	return sCode, response
+}
+
+
+
+
+
+func (c *baseService) DeRsaWithPrivateKey(privateKeyHex string,cipherText string , execTimeout int)(sCode int, response models.DeRsa){
+	response = models.DeRsa{}
+
+	cmdArgs := dict.CreateRsaKeyPeer
+	plogger.NewInstance().GetLogger().Info("baseService:GetVersion .The cmdArgs=%s \n ", cmdArgs)
+	engineResponse := engine.AFSExec4V2(dict.CMDIDVer, cmdArgs, execTimeout)
+	sCode, response = engine.HandlerDeRsa(engineResponse)
 	return sCode, response
 }

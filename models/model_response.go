@@ -1,6 +1,5 @@
 package models
 
-
 /***
  * version
  */
@@ -23,3 +22,11 @@ type RsaKeyPeer struct {
 	Note    string `json:"note"`
 }
 
+/**
+ * 使用 private 解密后的明文
+ */
+type DeRsa struct {
+	Plaintext string `json:"plaintext"`
+	Raw     string `json:"raw"`
+	Note    string `json:"note"`
+}

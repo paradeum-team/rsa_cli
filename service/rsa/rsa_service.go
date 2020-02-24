@@ -30,12 +30,12 @@ func (*rsaService)GetVersion( ) (sCode int, response models.VersionResponse){
 	execTimeout:=dict.MaxExecTime
 	sCode, resp := base.NewBaseServiceInstace().GetVersion(execTimeout)
 
-	plogger.NewInstance().GetLogger().Info("获取版本：\n")
-	plogger.NewInstance().GetLogger().Info("scode=%d \n",sCode)
-	plogger.NewInstance().GetLogger().Info("version=%s \n",resp.Version)
-	plogger.NewInstance().GetLogger().Info("Core=%s \n",resp.Core)
-	plogger.NewInstance().GetLogger().Info("Raw=%v \n",resp.Raw)
-	plogger.NewInstance().GetLogger().Info("Note=%v \n",resp.Note)
+	plogger.NewInstance().GetLogger().Infof("获取版本：\n")
+	plogger.NewInstance().GetLogger().Infof("scode=%d \n",sCode)
+	plogger.NewInstance().GetLogger().Infof("version=%s \n",resp.Version)
+	plogger.NewInstance().GetLogger().Infof("Core=%s \n",resp.Core)
+	plogger.NewInstance().GetLogger().Infof("Raw=%v \n",resp.Raw)
+	plogger.NewInstance().GetLogger().Infof("Note=%v \n",resp.Note)
 
 	return sCode,resp
 }
@@ -50,11 +50,26 @@ func (*rsaService)CreateRsaKeyPeer()(sCode int, response models.RsaKeyPeer){
 	execTimeout:=dict.MaxExecTime
 	sCode, resp := base.NewBaseServiceInstace().CreateRsaKeyPeer(execTimeout)
 
-	plogger.NewInstance().GetLogger().Info("公私钥密码对：\n")
-	plogger.NewInstance().GetLogger().Info("scode=%d \n",sCode)
-	plogger.NewInstance().GetLogger().Info("privateKey=%s \n",resp.PrivateKey)
-	plogger.NewInstance().GetLogger().Info("publicKey=%s \n",resp.PublicKey)
-	plogger.NewInstance().GetLogger().Info("Raw=%v \n",resp.Raw)
-	plogger.NewInstance().GetLogger().Info("Note=%v \n",resp.Note)
+	plogger.NewInstance().GetLogger().Infof("公私钥密码对：\n")
+	plogger.NewInstance().GetLogger().Infof("scode=%d \n",sCode)
+	plogger.NewInstance().GetLogger().Infof("privateKey=%s \n",resp.PrivateKey)
+	plogger.NewInstance().GetLogger().Infof("publicKey=%s \n",resp.PublicKey)
+	plogger.NewInstance().GetLogger().Infof("Raw=%v \n",resp.Raw)
+	plogger.NewInstance().GetLogger().Infof("Note=%v \n",resp.Note)
+	return sCode,resp
+}
+
+func (*rsaService)GetPassWithPrivateKey(privateKeyHex string,sypassenHex string )(sCode int, response models.DeRsa){
+	defer utils.DevTimeTrack(time.Now(), "deRsa with private key ")
+	plogger.NewInstance().GetLogger().Info("AFS decrypte rsa using private key   .")
+
+	execTimeout:=dict.MaxExecTime
+	sCode, resp := base.NewBaseServiceInstace().DeRsaWithPrivateKey(privateKeyHex,sypassenHex,execTimeout)
+
+	plogger.NewInstance().GetLogger().Infof("使用私钥解密密文获得明文：\n")
+	plogger.NewInstance().GetLogger().Infof("scode=%d \n",sCode)
+	plogger.NewInstance().GetLogger().Infof("mypass=%s \n",resp.Plaintext)
+	plogger.NewInstance().GetLogger().Infof("Raw=%v \n",resp.Raw)
+	plogger.NewInstance().GetLogger().Infof("Note=%v \n",resp.Note)
 	return sCode,resp
 }

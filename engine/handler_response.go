@@ -7,8 +7,47 @@ import (
 	"strings"
 )
 
+
 /**
- * version
+ *  rsa key
+ */
+func HandlerDeRsa(enginResponse EngineResponse) (sCode int, response models.DeRsa) {
+	raw := string(enginResponse.Raw)
+	raw = strings.TrimSuffix(raw, "\n")
+	sCode, note := handlerException(enginResponse)
+	deRsa := models.DeRsa{Raw: raw, Note: note}
+	if sCode != e.ScodeOK {
+		return sCode, deRsa
+	}
+
+	sCode = e.ScodeAFSErr
+
+	if strings.Contains(raw, "_r=true") {
+		chunks := strings.Split(raw, ";")
+		for _, chunk := range chunks {
+
+			items:=strings.Split(chunk,"=")
+
+			if len(items)==2{
+				if "sympass"==items[0]{
+					deRsa.Plaintext=items[1]
+				}
+			}
+		}
+
+		if deRsa.Plaintext!= ""  {
+			sCode = e.ScodeOK
+		}
+	}
+
+	plogger.NewInstance().GetLogger().Infof("handler decrypt rsa using private key  sCode=%d,deRsa=%v \n", sCode, deRsa)
+
+	return sCode, deRsa
+}
+
+
+/**
+ *  rsa key
  */
 func HandlerRsaKeyPeer(enginResponse EngineResponse) (sCode int, response models.RsaKeyPeer) {
 	raw := string(enginResponse.Raw)
