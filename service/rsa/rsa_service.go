@@ -33,7 +33,10 @@ func (*rsaService)GetVersion( ) (sCode int, response models.VersionResponse){
 
 	fmt.Println("获取版本：")
 	fmt.Printf("scode=%d \n",sCode)
-	fmt.Printf("resp=%v \n",resp)
+	fmt.Printf("version=%s \n",resp.Version)
+	fmt.Printf("Core=%s \n",resp.Core)
+	fmt.Printf("Raw=%v \n",resp.Raw)
+	fmt.Printf("Note=%v \n",resp.Note)
 
 	return sCode,resp
 }
@@ -50,6 +53,9 @@ func (*rsaService)CreateRsaKeyPeer()(sCode int, response models.RsaKeyPeer){
 
 	fmt.Println("公私钥密码对：")
 	fmt.Printf("scode=%d \n",sCode)
-	fmt.Printf("resp=%v \n",resp)
+	fmt.Printf("privateKey=%s \n",resp.PrivateKey)
+	fmt.Printf("publicKey=%s \n",resp.PublicKey)
+	fmt.Printf("Raw=%v \n",resp.Raw)
+	fmt.Printf("Note=%v \n",resp.Note)
 	return sCode,resp
 }
