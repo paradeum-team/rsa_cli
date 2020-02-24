@@ -41,7 +41,7 @@ func HandlerRsaKeyPeer(enginResponse EngineResponse) (sCode int, response models
 		}
 	}
 
-	plogger.NewInstance().GetLogger().Infof("handler version sCode=%d,versionResp=%v \n", sCode, rsaPeer)
+	plogger.NewInstance().GetLogger().Infof("handler create rsa keys peer sCode=%d,rsaKeyPeers=%v \n", sCode, rsaPeer)
 
 	return sCode, rsaPeer
 }

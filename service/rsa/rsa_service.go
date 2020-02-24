@@ -7,7 +7,6 @@ import (
 	"bfs_cli_rsa/models"
 	"bfs_cli_rsa/service"
 	"bfs_cli_rsa/service/base"
-	"fmt"
 	"time"
 )
 var rsaServiceInstace *rsaService
@@ -31,12 +30,12 @@ func (*rsaService)GetVersion( ) (sCode int, response models.VersionResponse){
 	execTimeout:=dict.MaxExecTime
 	sCode, resp := base.NewBaseServiceInstace().GetVersion(execTimeout)
 
-	fmt.Println("获取版本：")
-	fmt.Printf("scode=%d \n",sCode)
-	fmt.Printf("version=%s \n",resp.Version)
-	fmt.Printf("Core=%s \n",resp.Core)
-	fmt.Printf("Raw=%v \n",resp.Raw)
-	fmt.Printf("Note=%v \n",resp.Note)
+	plogger.NewInstance().GetLogger().Info("获取版本：\n")
+	plogger.NewInstance().GetLogger().Info("scode=%d \n",sCode)
+	plogger.NewInstance().GetLogger().Info("version=%s \n",resp.Version)
+	plogger.NewInstance().GetLogger().Info("Core=%s \n",resp.Core)
+	plogger.NewInstance().GetLogger().Info("Raw=%v \n",resp.Raw)
+	plogger.NewInstance().GetLogger().Info("Note=%v \n",resp.Note)
 
 	return sCode,resp
 }
@@ -45,17 +44,17 @@ func (*rsaService)GetVersion( ) (sCode int, response models.VersionResponse){
  * 创建rsa 公私钥 对
  */
 func (*rsaService)CreateRsaKeyPeer()(sCode int, response models.RsaKeyPeer){
-	defer utils.DevTimeTrack(time.Now(), "GetVersion")
-	plogger.NewInstance().GetLogger().Info("AFS Get version .")
+	defer utils.DevTimeTrack(time.Now(), "CreateRsaKeyPeer")
+	plogger.NewInstance().GetLogger().Info("AFS create rsa key peers  .")
 
 	execTimeout:=dict.MaxExecTime
 	sCode, resp := base.NewBaseServiceInstace().CreateRsaKeyPeer(execTimeout)
 
-	fmt.Println("公私钥密码对：")
-	fmt.Printf("scode=%d \n",sCode)
-	fmt.Printf("privateKey=%s \n",resp.PrivateKey)
-	fmt.Printf("publicKey=%s \n",resp.PublicKey)
-	fmt.Printf("Raw=%v \n",resp.Raw)
-	fmt.Printf("Note=%v \n",resp.Note)
+	plogger.NewInstance().GetLogger().Info("公私钥密码对：\n")
+	plogger.NewInstance().GetLogger().Info("scode=%d \n",sCode)
+	plogger.NewInstance().GetLogger().Info("privateKey=%s \n",resp.PrivateKey)
+	plogger.NewInstance().GetLogger().Info("publicKey=%s \n",resp.PublicKey)
+	plogger.NewInstance().GetLogger().Info("Raw=%v \n",resp.Raw)
+	plogger.NewInstance().GetLogger().Info("Note=%v \n",resp.Note)
 	return sCode,resp
 }

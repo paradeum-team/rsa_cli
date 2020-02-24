@@ -5,7 +5,7 @@ CGO_ENABLED=0 GOARCH=amd64  GOOS=linux go build -a -v -installsuffix cgo -o bin/
 
 #CGO_ENABLED=0 GOARCH=arm  GOOS=linux go build -a -v -installsuffix cgo -o bin/bfs_cli_rsa .
 
-docker build -t bfs_cli_rsa:v0.1 .
+docker build -t bfs_cli_rsa:v0.2 .
 
 
 #GOOS:Target Platform's os must  in [darwin freebsd linux windows]
